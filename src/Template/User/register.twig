@@ -1,0 +1,59 @@
+{% include 'Layout/layout.twig' %}
+
+
+<div class="container">
+<h1>Inscription</h1>
+
+     {% if errors %}
+
+         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+             <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+             <hr>
+             {% for error in errors %}
+             <small>- {{ error }}</small><br>
+             {% endfor %}
+         </div>
+
+    {% endif %}
+
+    {% if not success %}
+
+        <form method="POST" action="?page=register">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <!-- Nom -->
+                    <label for="validationTooltip01">Nom</label>
+                    <input type="text" class="form-control" id="validationTooltip01" placeholder="Nom" name="lastname" value="{% if user.lastname %}{{ user.lastname }}{% endif %}">
+                </div>
+                <div class="col-md-6">
+                    <!-- Prenom -->
+                    <label for="validationTooltip02">Prenom</label>
+                    <input type="text" class="form-control" id="validationTooltip02" placeholder="Prenom" name="firstname" value="{% if user.firstname %}{{ user.firstname }}{% endif %}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <!-- Adresse email -->
+                    <label for="validationTooltip01">Adresse email</label>
+                    <input type="text" class="form-control" id="validationTooltip01" placeholder="Adresse email" name="mail" value="{% if user.mail %}{{ user.mail }}{% endif %}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <!-- Mot de passe -->
+                    <label for="validationTooltip01">Mot de passe</label>
+                    <input type="text" class="form-control" id="validationTooltip01" placeholder="Mot de passe" name="password" value="{% if user.password %}{{ user.password }}{% endif %}">
+                </div>
+                <div class="col-md-6">
+                    <!-- Confirme mot de passe -->
+                    <label for="validationTooltip02">Confirmer mot de passe</label>
+                    <input type="text" class="form-control" id="validationTooltip02" placeholder="Mot de passe" name="confirm_password" value="{% if user.ConfirmPassword %}{{ user.ConfirmPassword }}{% endif %}">
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" name="btn_register">Inscription</button>
+        </form>
+
+
+    {% endif %}
+    <a href="?page=login">Deja un compte ?</a>
+</div>

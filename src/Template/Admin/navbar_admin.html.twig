@@ -1,0 +1,73 @@
+<div class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a href="?page=dashboard" class="navbar-brand"><i class="fas fa-code"></i> Benjamin PELLETIER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-users"></i> Utilisateurs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?page=adminlistusers"><i class="fas fa-list-alt"></i> Liste Utilisateurs</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-newspaper"></i> Articles
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?page=adminlistposts"><i class="fas fa-list-alt"></i> Liste Articles</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="?page=addpost"><i class="fas fa-pencil"></i> Ajouter un Article</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?page=adminlistcontacts"><i class="fas fa-list-alt"></i> Liste Contacts</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-comments"></i> Commentaires
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?page=adminlistcomments"><i class="fas fa-list-alt"></i> Liste Commentaires</a>
+                    </div>
+                </li>
+
+            </ul>
+
+            <ul class="nav navbar-nav ml-auto">
+
+                {% if user_data %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{ user_data['lastname']|upper }} {{ user_data['firstname']|capitalize  }} ({{ user_data['grant_name']|capitalize }})
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if user_data['grant_name'] == "administrator" %}
+                        <a class="dropdown-item" href="?page=home"><i class="fas fa-home"></i> Retour site</a>
+                        {% endif %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="?page=logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="?page=login"><i class="fas fa-sign-in"></i> Connexion</a>
+                    {% endif %}
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+{% include '/Layout/layout_admin.twig' %}
+
+<div class="container">
+
+    {% if not contacts %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+        <hr>
+        <small>- Aucun message à afficher</small><br>
+    </div>
+
+    {% else %}
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col"></th>
+                <th scope="col">Identité</th>
+                <th scope="col">Email</th>
+                <th scope="col">Message</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.id }}</td>
+                    <td>{% if contact.iduser %}<span class="badge badge-primary">User</span> {% else %} <span class="badge badge-dark">Ano</span> {% endif %}</td>
+                    <td>{% if contact.user.firstname %} {{ contact.user.firstname|capitalize }} {{ contact.user.lastname|upper }}
+                        {% else %} {{ contact.firstname|capitalize }} {{ contact.lastname|upper }} {% endif %} </td>
+                    <td>{{ contact.mail }}</td>
+                    <td>{{ contact.message }}</td>
+                    <td>{{ contact.createdate|date("d/m/Y H:i") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>

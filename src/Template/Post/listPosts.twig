@@ -1,0 +1,21 @@
+{% include 'Layout/layout.twig' %}
+
+<div class="container">
+    <h1>Articles</h1>
+    <div class="card-deck">
+{% for post in posts %}
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">{{ post.title|capitalize }}</p>
+                <p>{{ post.subhead }}</p>
+                <small><i class="fas fa-calendar"></i> {{ post.creationdate|date("d/m/Y H:i") }} <i class="fas fa-edit"></i> {{ post.updatedate|date("d/m/Y H:i") }}</small>
+                <br><small><i class="fas fa-user-edit"></i> {{ post.user.firstname|capitalize }} {{ post.user.lastname|upper }}</small>
+                <hr>
+                <a class="btn btn-primary" href="?page=showpost/{{ post.id }}" role="button"><i class="fas fa-arrow-right"></i> Voir</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+    </div>
+</div>

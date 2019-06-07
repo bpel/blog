@@ -1,0 +1,51 @@
+{% include 'Layout/layout_admin.twig' %}
+
+<div class="container">
+
+    {% if errors %}
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+            <hr>
+            {% for error in errors %}
+                <small>- {{ error }}</small><br>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+    {% if message %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h4 class="success-heading"><i class="fas fa-check-circle"></i> Ok</h4>
+            <hr>
+                <small>- {{ message }}</small><br>
+        </div>
+
+    {% endif %}
+
+    <form method="POST">
+        <div class="form-row">
+            <div class="col-md-12">
+                <!-- Titre -->
+                <label for="validationTooltip01">Titre</label>
+                <input type="text" class="form-control" id="validationTooltip01" placeholder="Titre" name="title" value="{% if post.title %}{{ post.title }}{% endif %}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <!-- Chapo -->
+                <label for="exampleFormControlTextarea1">Chapo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="subhead"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <!-- Texte -->
+                <label for="exampleFormControlTextarea1">Texte</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text"></textarea>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" name="btn_create_post">Valider</button>
+    </form>
+</div>

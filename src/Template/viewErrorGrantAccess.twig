@@ -1,0 +1,14 @@
+{% include 'Layout/layout.twig' %}
+<div class="container">
+
+    {% if message %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+        <hr>
+        <small>- {{ message }}</small><br>
+    </div>
+
+    {% endif %}
+
+</div>

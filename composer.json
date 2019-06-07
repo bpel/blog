@@ -1,0 +1,23 @@
+{
+    "name": "benjamin/p5blog",
+    "require": {
+        "twig/twig": "^2.7",
+        "ext-PDO": "^7.2",
+        "twig/extensions": "^1.5",
+        "symfony/var-dumper": "^4.2",
+        "swiftmailer/swiftmailer": "^6.2",
+        "vlucas/phpdotenv": "^3.3"
+    },
+    "authors": [
+        {
+            "name": "benjamin.pelletier",
+            "email": "pelletierbenjamin90@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "src\\": "src/"
+        }
+    }
+}

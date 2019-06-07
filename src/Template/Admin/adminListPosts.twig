@@ -1,0 +1,55 @@
+{% include 'Layout/layout_admin.twig' %}
+
+<div class="container">
+
+    {% if not posts %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+        <hr>
+        <small>- Aucun article à afficher</small><br>
+    </div>
+
+    {% else %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Chapo</th>
+            <th scope="col">Texte</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Date création</th>
+            <th scope="col">Date modification</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.id }}</td>
+            <td>{{ post.title|capitalize() }}</td>
+            <td>{{ post.subhead|truncate(10) }}</td>
+            <td>{{ post.text|truncate(10) }}</td>
+            <td>{{ post.user.firstname|capitalize }} {{ post.user.lastname|upper }}</td>
+            <td>{{ post.creationdate|date('d/m/Y H:i') }}</td>
+            {% if post.updatedate %}
+                <td>{{ post.updatedate|date('d/m/Y H:i') }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            <td>
+                <a class="btn btn-warning" href="?page=adminshowpost/{{ post.id }}" role="button"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-danger" href="?page=removepost/{{ post.id }}" role="button"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+
+        {% endif %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,75 @@
+{% include 'Layout/layout_admin.twig' %}
+
+<div class="container">
+
+    {% if errors %}
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+            <hr>
+            {% for error in errors %}
+                <small>- {{ error }}</small><br>
+            {% endfor %}
+        </div>
+    {% elseif message %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-check"></i> Ok</h4>
+            <hr>
+                <small>- {{ message }}</small><br>
+        </div>
+
+    {% endif %}
+
+{% if post %}
+
+    <form method="POST" action="?page=admineditpost">
+        <div class="form-row">
+            <div class="col-md-12">
+                <!-- Titre -->
+                <label>Titre</label>
+                <input type="text" class="form-control" placeholder="Titre" name="title" value="{% if post.title %}{{ post.title }}{% endif %}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <!-- Chapo -->
+                <label>Chapo</label>
+                <textarea class="form-control" rows="3" name="subhead">{% if post.subhead %}{{ post.subhead }}{% endif %}</textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <!-- Texte -->
+                <label>Texte</label>
+                <textarea class="form-control" rows="3" name="text">{% if post.text %}{{ post.text }}{% endif %}</textarea>
+            </div>
+        </div>
+
+        <!-- Auteur -->
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Auteur</label>
+            <select class="form-control" name="id_user">
+
+                {% if auteur %}
+                <option value="{{ auteur.id }}">{{ auteur.firstname|capitalize }} {{ auteur.lastname|upper }}</option>
+                {% endif %}
+                {% if post.user.id %}
+                <option value="{{ post.user.id }}">{{ post.user.firstname|capitalize }} {{ post.user.lastname|upper }}</option>
+                {% endif %}
+
+                {% for user in list_users %}
+                    <option value="{{ user.id }}">{{ user.firstname|capitalize }} {{ user.lastname|upper }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <input type="text" name="post_id" hidden value="{{ post.id }}">
+
+        <br><button class="btn btn-primary" type="submit" name="btn_edit_post">Modifier</button>
+    </form>
+
+
+{% endif %}
+
+</div>

@@ -1,0 +1,35 @@
+.navbar {
+    background-color: #2980b9!important;
+    /*margin-bottom: 20px;*/
+}
+.card-tasks {
+    height: 200px;
+    margin-bottom: 20px;
+}
+.card-tasks a {
+    height: 100%;
+}
+
+.card-tasks img {
+    background-color: darkgray;
+}
+
+.btn-primary {
+    background-color: #2980b9!important;
+    border-color: #2980b9!important;
+}
+.jumbotron {
+
+}
+.card-deck {
+
+}
+
+.card {
+    margin-top: 20px;
+}
+
+#img_profil {
+    height: 200px;
+    text-align: center;
+}

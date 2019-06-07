@@ -1,0 +1,66 @@
+{% include 'Layout/layout.twig' %}
+
+<div class="container">
+
+    {% if errors %}
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+            <hr>
+            {% for error in errors %}
+                <small>- {{ error }}</small><br>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+{% if post %}
+
+    <h1>{{ post.title|capitalize() }}</h1>
+    <p>{{ post.subhead }}</p>
+    <p>{{ post.text }}</p>
+    <small><i class="fas fa-user-edit"></i> {{ post.user.firstname|capitalize }} {{ post.user.lastname|upper }} <i class="fas fa-calendar"></i> {{ post.creationdate|date('d/m/Y H:i') }}
+        <i class="fas fa-edit"></i> {{ post.updatedate|date('d/m/Y H:i') }}</small>
+    <br>
+    <hr>
+    <h2>Commentaires</h2>
+
+    {% if message %}
+
+        <div class="alert alert-primary" role="alert">
+            <i class="fas fa-comment-plus"></i> {{ message }}
+        </div>
+
+    {% endif %}
+
+    {% if comments %}
+
+        {% for comment in comments %}
+
+            {% if comment.user %}
+                <p>{{ comment.user.firstname|capitalize }} {{ comment.user.lastname|upper }} à commenté le {{ comment.createdate|date("d/m/Y H:i") }} </p>
+            {% else %}
+                <p>Anonyme à commenté le {{ comment.createdate|date("d/m/Y H:i") }} </p>
+            {% endif %}
+            <i class="fas fa-angle-double-left"></i> {{ comment.comment }} <i class="fas fa-angle-double-right"></i>
+            <p>----------</p>
+
+        {% endfor %}
+
+    {% else %}
+    <div class="alert alert-primary" role="alert">
+        <i class="fas fa-comment-smile"></i> Aucun commentaire sur cet article, soyez le premier à en ajouter un !
+    </div>
+    {% endif %}
+    <h3>Nouveau commentaire</h3>
+    <form method="POST">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Commentaire</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text_comment"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" name="btn-comment"><i class="far fa-plus-octagon"></i> Soumettre</button>
+    </form>
+
+{% endif %}
+    <small>Les commentaires sont soumit à validation.</small>
+</div>

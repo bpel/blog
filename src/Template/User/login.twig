@@ -1,0 +1,60 @@
+{% include 'Layout/layout.twig' %}
+
+
+<div class="container">
+    <h1>Connexion</h1>
+
+    {% if errors %}
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-times-octagon"></i> Erreur</h4>
+            <hr>
+            {% for error in errors %}
+                <small>- {{ error }}</small><br>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+    {% if message %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-check-square"></i> OK!</h4>
+            <hr>
+            <p>{{ message }}</p>
+        </div>
+
+    {% endif %}
+
+    {% if success %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-check-square"></i> OK!</h4>
+            <hr>
+            <p>Votre compte à été créer avec success, connectez-vous maintenant :</p>
+        </div>
+
+    {% endif %}
+
+        <form method="POST" action="?page=login">
+            <div class="form-row">
+                <div class="col-md-12">
+                    <!-- Email -->
+                    <label for="validationTooltip01">Email</label>
+                    <input type="text" class="form-control" id="validationTooltip01" placeholder="Adresse email" name="mail" value="{% if user.mail %}{{ user.mail }}{% endif %}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <!-- Adresse email -->
+                    <label for="validationTooltip01">Mot de passe</label>
+                    <input type="text" class="form-control" id="validationTooltip01" placeholder="Mot de passe" name="password" value="{% if user.password %}{{ user.password }}{% endif %}">
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" name="btn_login">Connexion</button>
+        </form>
+
+<a href="?page=register">Pas de compte ?</a>
+
+
+</div>
