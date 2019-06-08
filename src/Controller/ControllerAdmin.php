@@ -133,7 +133,7 @@ class ControllerAdmin extends Controller
         }
     }
 
-    public function showComment($id)
+    public function showComment()
     {
         if($this->security->isAdministrator())
         {
