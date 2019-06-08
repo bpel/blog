@@ -4,11 +4,6 @@ namespace Core;
 
 class Request {
     const GET = "get";
-    private $datas = [
-    self::GET => [],
-    "post" => [],
-    "session" => []
-    ];
     private $data;
 
     public function __construct() {

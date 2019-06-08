@@ -41,9 +41,8 @@ class CommentsManager extends Model
 
             $var[] = new Comment($data);
         }
-        return $var;
-
         $req->closeCursor();
+        return $var;
     }
 
     public function changeStatutComment($id,$statut)
@@ -66,8 +65,8 @@ class CommentsManager extends Model
             $data['user'] = $this->usermanager->getUserbyId($data['iduser']);
             $var[] = new Comment($data);
         }
-        return $var;
         $req->closeCursor();
+        return $var;
     }
 
     public function addComment($idpost)

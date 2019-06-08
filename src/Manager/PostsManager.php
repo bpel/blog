@@ -30,7 +30,6 @@ class PostsManager extends Model
             $post[] = new Post($data);
         }
         $req->closeCursor();
-
         return $post;
     }
 
@@ -44,7 +43,6 @@ class PostsManager extends Model
         $data['user'] = $this->usermanager->getUserbyId($data['iduser']);
         $var = new Post($data);
         $req->closeCursor();
-
         return $var;
     }
 

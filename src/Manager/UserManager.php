@@ -17,13 +17,12 @@ class UserManager extends Model
         {
             $var[] = new User($data);
         }
-        return $var;
         $req->closeCursor();
+        return $var;
     }
 
     public function userExist($iduser)
     {
-        $var = [];
         $req = $this->getBdd()->prepare('SELECT * FROM users WHERE users.id = :iduser;;');
         $req->bindParam(':iduser', $iduser);
         $req->execute();
@@ -35,13 +34,12 @@ class UserManager extends Model
 
     public function getUser($mail)
     {
-        $var = [];
         $req = $this->getBdd()->prepare('SELECT * FROM users WHERE users.mail = :mail;;');
         $req->bindParam(':mail', $mail);
         $req->execute();
         $data = $req->fetch();
-        return $data;
         $req->closeCursor();
+        return $data;
     }
 
     public function getUserbyId($userid)
@@ -50,8 +48,8 @@ class UserManager extends Model
         $req->bindParam(':userid', $userid);
         $req->execute();
         $data = $req->fetch();
-        return $data;
         $req->closeCursor();
+        return $data;
     }
 
     public function passwordDatabaseAccount($mail)
@@ -60,8 +58,8 @@ class UserManager extends Model
         $req->bindParam(':mail', $mail);
         $req->execute();
         $data = $req->fetch();
-        return $data;
         $req->closeCursor();
+        return $data;
     }
 
 
@@ -71,8 +69,8 @@ class UserManager extends Model
         $req->bindParam(':mail', $mail);
         $req->execute();
         $data = $req->fetch();
-        return $data;
         $req->closeCursor();
+        return $data;
     }
 
     public function setGrantUser($id_user,$id_grant)
@@ -111,8 +109,8 @@ WHERE users.mail = :mail;'); #sql qui retourne un boolean !!
         $req->bindParam(':mail', $mail);
         $req->execute();
         $data = $req->fetch();
-        return $data;
         $req->closeCursor();
+        return $data;
 
     }
 

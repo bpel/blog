@@ -26,14 +26,14 @@ abstract class Model
         $dateNow = new DateTime();
         $timezone = new DateTimeZone($this->getEnvVar('time_zone'));
         $dateNow->setTimezone($timezone);
-        return $date = $dateNow->format("Y-m-d H:i");
+        return $dateNow->format("Y-m-d H:i");
     }
 
     public function getEnvVar($token)
     {
-        if (isset($_ENV[$token])) { return $_ENV['$token']; }
+        if (isset($_ENV[$token])) { return $_ENV[$token]; }
         elseif ($_ENV[strtoupper($token)]) { return $_ENV[strtoupper($token)]; }
-        else { return null; }
+        return null;
     }
 
     private function setBdd()
@@ -45,7 +45,7 @@ abstract class Model
         } catch (PDOException $exception)
         {
             echo($exception->getMessage());
-            die();
+            return -1;
         }
     }
 
@@ -82,7 +82,7 @@ abstract class Model
         return $var;
     }
 
-    protected function removeElement($table, $obj, $id)
+    protected function removeElement($table, $id)
     {
         $req = $this->getBdd()->prepare('DELETE FROM ' .$table. ' WHERE numblog = '.$id);
         $req->execute();

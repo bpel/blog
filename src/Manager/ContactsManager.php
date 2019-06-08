@@ -99,10 +99,8 @@ class ContactsManager extends Model
 
             $contact[] = new Contact($data);
         }
-
-        return $contact;
-
         $req->closeCursor();
+        return $contact;
     }
 
 }

@@ -48,7 +48,7 @@ class ControllerUser extends Controller
         }
     }
 
-    public function userLogin($success = null)
+    public function userLogin()
     {
         if ($this->security->isLogged()) {
 
