@@ -17,9 +17,10 @@ class Security
     }
 
     public function isAdministrator() {
-        if ($this->isLogged() && $this->request->session("grant_name") == 'administrator'){
+        if ($this->isLogged() && $this->request->session("grant_name") == 'administrator') {
             return 1;
-        } else { return 0; }
+        }
+        return 0;
     }
 
     public function getDatasSession()
@@ -75,8 +76,7 @@ class Security
             $this->request->set("grant_name",$datas_user['grant_name'],"session");
             return 1;
 
-        } else {
-            return null;
         }
+        return null;
     }
 }

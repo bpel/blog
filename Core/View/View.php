@@ -46,7 +46,7 @@ class View
     public function redirectToPage($pageUrl)
     {
         header("Location: ?page=$pageUrl");
-        exit(1);
+        return 1;
     }
 
 }
