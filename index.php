@@ -74,7 +74,7 @@ $router->get('/listposts/', function()
 $router->post('/login/', function()
 {
     $controller = new ControllerUser();
-    $controller->login();
+    $controller->userLogin();
 });
 
 $router->get('/login/', function()
