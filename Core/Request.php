@@ -7,7 +7,7 @@ class Request {
     private $data;
 
     public function __construct() {
-    $this->data[self::GET] = filter_input_array(INPUT_GET);
+    $this->data['get'] = filter_input_array(INPUT_GET);
     $this->data['post'] = filter_input_array(INPUT_POST);
     $this->data['session'] = filter_input_array(INPUT_SESSION);
     }
@@ -15,17 +15,17 @@ class Request {
     public function exist($key, $method = "get") {
         switch ($method){
             case "get":
-                if(isset($_GET[$key])) {
+                if(isset($this->data['get'])) {
                     return true;
                 }
                 break;
             case "post":
-                if(isset($_POST[$key])) {
+                if(isset($this->data['post'])) {
                     return true;
                 }
                 break;
             case "session":
-                if(isset($_SESSION[$key])) {
+                if(isset($this->data['session'])) {
                     return true;
                 }
                 break;
