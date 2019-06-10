@@ -89,7 +89,7 @@ class ControllerUser extends Controller
         }
         else
         {
-            session_destroy();
+            session_unset();
             $this->redirectToPage('home');
         }
     }
