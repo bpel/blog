@@ -85,12 +85,12 @@ class ControllerUser extends Controller
         $this->request = new Request();
         if(!$this->request->exist("firstname","session"))
         {
-            header("Location: ?page=login");
+            $this->redirectToPage('login');
         }
         else
         {
             session_destroy();
-            header("Location: ?page=home");
+            $this->redirectToPage('home');
         }
     }
 }

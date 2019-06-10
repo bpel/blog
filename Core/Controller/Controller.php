@@ -44,4 +44,10 @@ class Controller
         echo $view;
     }
 
+    public function redirectToPage($url)
+    {
+        header("Location : ?page".$url);
+        return 1;
+    }
+
 }
