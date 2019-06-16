@@ -81,16 +81,17 @@ class ControllerUser extends Controller
 
     public function logout()
     {
-
-        $this->request = new Request();
-        if(!$this->request->exist("firstname","session"))
+        if(!$this->security->isLogged())
         {
             $this->redirectToPage('login');
         }
         else
         {
-            session_unset();
-            $this->redirectToPage('home');
+            session_destroy();
+
+            header('Location:?page=home');
+
+            #$this->redirectToPage('home');
         }
     }
 }

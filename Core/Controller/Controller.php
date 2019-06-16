@@ -22,7 +22,6 @@ class Controller
     protected $contactsManager;
 
     protected $sessionProvider;
-    protected $easyCSRF;
 
     protected $mail;
 
@@ -46,7 +45,7 @@ class Controller
 
     public function redirectToPage($url)
     {
-        header("Location : ?page".$url);
+        header('Location:?page='.$url);
         return 1;
     }
 

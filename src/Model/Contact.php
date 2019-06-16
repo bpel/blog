@@ -5,6 +5,7 @@ namespace src\Model;
 use Core\Model\Model;
 use Core\Request;
 use Core\Security;
+use src\Manager\UserManager;
 
 class Contact extends Model
 {
@@ -27,6 +28,7 @@ class Contact extends Model
         $this->hydrate($data);
         $this->request = new Request();
         $this->security = new Security($this->request);
+        $this->userManager = new UserManager();
     }
 
     public function hydrate(array $data)
@@ -184,18 +186,28 @@ class Contact extends Model
         $this->_user = $user;
     }
 
-    public function validForm($typeLogin)
+    public function isDefine()
     {
-        switch ($typeLogin)
+        if ($this->security->isLogged())
         {
-            case "login":
-                if($this->isDefine("login") && $this->crsfisValid()) { return 1; } else { return 0; }
-                break;
-            case "anonymous":
-                if($this->isDefine("anonymous") && $this->mailValid() && $this->lastnameValid() && $this->fistnameValid() && $this->crsfisValid())
-                { return 1; } else { return 0; }
-                break;
+            if(!empty($this->_message))
+            {
+                return true;
+            }
+            return false;
         }
+        if(!empty($this->_lastname) && !empty($this->_firstname) && !empty($this->_mail) && !empty($this->_message))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function validForm()
+    {
+        if($this->isDefine()) #&& $this->crsfisValid()
+        { return true; }
+        return false;
     }
 
     public function crsfisValid()
@@ -204,23 +216,29 @@ class Contact extends Model
         {
             return 1;
         } else {
+            dump($this->request->post('token_crsf'));
             return 0;
         }
     }
 
-
-    public function isDefine($typeLogin)
+    public function setValueFromPost()
     {
-        switch ($typeLogin)
+        if ($this->security->isLogged())
         {
-            case "login":
-                if(!empty($this->_iduser) && !empty($this->_message)) { return 1; } else { return 0; }
-                break;
-            case "anonymous":
-                if(!empty($this->_lastname) && !empty($this->_firstname) && !empty($this->_mail) && !empty($this->_message)) { return 1; } else { return 0; }
-                break;
+            $this->setIduser($this->security->getIdUser());
+            $this->setIdstatut(1);
+            $this->setMessage($this->request->post('message'));
+            return true;
         }
+
+        $this->setFirstname(strtolower($this->request->post('firstname')));
+        $this->setLastname(strtolower($this->request->post('lastname')));
+        $this->setMail(strtolower($this->request->post('mail')));
+        $this->setMessage($this->request->post('message'));
+        $this->setIdstatut(1);
+        return true;
     }
+
 
     public function mailValid()
     {
@@ -247,26 +265,34 @@ class Contact extends Model
         }
     }
 
-    public function getErrorsForm($typeLogin)
+    public function getErrorsForm()
     {
         $error = array();
-        switch ($typeLogin)
+        if($this->security->isLogged())
         {
-            case "login":
-                if(!$this->isDefine("login")) { $error[] = "Tout les champs ne sont pas remplit";}
-                if(!$this->crsfisValid()) { $error[] = "Le token CRSF n'est pas valide"; }
-                return $error;
-                break;
-
-            case "anonymous":
-                if(!$this->isDefine("anonymous")) { $error[] = "Tout les champs ne sont pas remplit";}
-                if(!$this->mailValid()) { $error[] = "L'adresse email n'est pas valide"; }
-                if(!$this->fistnameValid()) { $error[] = "Taille du prenom de 1 a 100 caractere"; }
-                if(!$this->lastnameValid()) { $error[] = "Taille du nom de 1 a 100 caractere"; }
-                if(!$this->crsfisValid()) { $error[] = "Le token CRSF n'est pas valide"; }
-                return $error;
-                break;
+            if(!$this->isDefine()) { $error[] = "Tout les champs ne sont pas remplit";}
+            return $error;
         }
+        if(!$this->isDefine()) { $error[] = "Tout les champs ne sont pas remplit";}
+        if(!$this->mailValid()) { $error[] = "L'adresse email n'est pas valide"; }
+        if(!$this->fistnameValid()) { $error[] = "Taille du prenom de 1 a 100 caractere"; }
+        if(!$this->lastnameValid()) { $error[] = "Taille du nom de 1 a 100 caractere"; }
+        #if(!$this->crsfisValid()) { $error[] = "Le token CRSF n'est pas valide"; }
+        return $error;
     }
 
+    public function getMessageMailContact()
+    {
+        if ($this->security->isLogged())
+        {
+            $user = $this->userManager->getUserbyId($this->_iduser);
+            $message = "Nom : ".$user['lastname'].'| Prenom : '.$user['firstname'].' | Email : '.$user['mail']." | Message : ".$this->_message." | Date : ".$this->getDateNow();
+            #on recup les valeur dans la BDD
+            return $message;
+        }
+
+        $message = "Nom : ".$this->_lastname.'| Prenom : '.$this->_firstname.' | Email : '.$this->_mail." | Message : ".$this->_message." | Date : ".$this->getDateNow();
+
+        return $message;
+    }
 }

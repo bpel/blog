@@ -18,24 +18,27 @@ class PostsManager extends Model
         $this->usermanager = new UserManager();
     }
 
-
     public function getPosts()
     {
         $post = null;
-        $req = $this->getBdd()->prepare('SELECT * FROM posts ORDER BY posts.id DESC;;');
-        $req->execute();
-        while($data = $req->fetch(\PDO::FETCH_ASSOC))
+
+        if($this->getBdd())
         {
-            $data['user'] = $this->usermanager->getUserbyId($data['iduser']);
-            $post[] = new Post($data);
+            $req = $this->getBdd()->prepare('SELECT * FROM posts ORDER BY posts.id DESC;;');
+            $req->execute();
+            while($data = $req->fetch(\PDO::FETCH_ASSOC))
+            {
+                $data['user'] = $this->usermanager->getUserbyId($data['iduser']);
+                $post[] = new Post($data);
+            }
+            $req->closeCursor();
+            return $post;
         }
-        $req->closeCursor();
-        return $post;
+        return false;
     }
 
     public function showPost($id)
     {
-        $var = [];
         $req = $this->getBdd()->prepare('SELECT * FROM posts WHERE id = :id');
         $req->bindParam(':id', $id);
         $req->execute();

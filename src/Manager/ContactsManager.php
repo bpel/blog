@@ -66,15 +66,6 @@ class ContactsManager extends Model
 
     }
 
-    public function sendMail($contact)
-    {
-        $this->mail->setSubjectMail('Contact');
-        $this->mail->setMessageMail("Nom/Prenom :".$contact->getFirstname()." ".$contact->getLastname()." Message: ".$contact->getMessage()." | "."Expediteur: ".$contact->getMail()." | Date : ".$this->getDateNow());
-        $this->mail->setReceiverMail('pelletierbenjamin90@gmail.com');
-        $this->mail->sendMail();
-    }
-
-
     public function getContacts()
     {
         $contact = null;

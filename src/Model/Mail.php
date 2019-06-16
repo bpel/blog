@@ -3,6 +3,7 @@
 namespace src\Model;
 
 use Core\Model\Model;
+use PHPMailer\PHPMailer\Exception;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
@@ -47,7 +48,8 @@ class Mail extends Model
             ->setTo($this->_receiverMail)
             ->setBody($this->_text)
         ;
-        $result = $this->_mailer->send($message);
-        return $result;
+
+        $this->_mailer->send($message,$failures);
     }
+
 }

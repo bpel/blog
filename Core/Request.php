@@ -9,23 +9,23 @@ class Request {
     public function __construct() {
     $this->data['get'] = filter_input_array(INPUT_GET);
     $this->data['post'] = filter_input_array(INPUT_POST);
-    $this->data['session'] = filter_input_array(INPUT_SESSION);
+    $this->data['session'] = $_SESSION;
     }
 
     public function exist($key, $method = "get") {
         switch ($method){
             case "get":
-                if(isset($this->data['get'])) {
+                if(isset($this->data['get'][$key])) {
                     return true;
                 }
                 break;
             case "post":
-                if(isset($this->data['post'])) {
+                if(isset($this->data['post'][$key])) {
                     return true;
                 }
                 break;
             case "session":
-                if(isset($this->data['session'])) {
+                if(isset($this->data['session'][$key])) {
                     return true;
                 }
                 break;
