@@ -49,7 +49,7 @@ class Mail extends Model
             ->setBody($this->_text)
         ;
 
-        $this->_mailer->send($message,$failures);
+        $this->_mailer->send($message);
     }
 
 }

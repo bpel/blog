@@ -190,24 +190,14 @@ class Contact extends Model
     {
         if ($this->security->isLogged())
         {
-            if(!empty($this->_message))
-            {
-                return true;
-            }
-            return false;
+            return(!empty($this->_message));
         }
-        if(!empty($this->_lastname) && !empty($this->_firstname) && !empty($this->_mail) && !empty($this->_message))
-        {
-            return true;
-        }
-        return false;
+        return(!empty($this->_lastname) && !empty($this->_firstname) && !empty($this->_mail) && !empty($this->_message));
     }
 
     public function validForm()
     {
-        if($this->isDefine()) #&& $this->crsfisValid()
-        { return true; }
-        return false;
+        return($this->isDefine()); #&& $this->crsfisValid()
     }
 
     public function crsfisValid()
@@ -247,22 +237,12 @@ class Contact extends Model
 
     public function fistnameValid()
     {
-        if(strlen($this->_lastname) > 0 && strlen($this->_lastname) <= 100)
-        {
-            return 1;
-        } else {
-            return 0;
-        }
+        return(strlen($this->_lastname) > 0 && strlen($this->_lastname) <= 100);
     }
 
     public function lastnameValid()
     {
-        if(strlen($this->_lastname) > 0 && strlen($this->_lastname) <= 100)
-        {
-            return 1;
-        } else {
-            return 0;
-        }
+        return (strlen($this->_lastname) > 0 && strlen($this->_lastname) <= 100);
     }
 
     public function getErrorsForm()
