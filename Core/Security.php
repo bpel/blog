@@ -18,9 +18,9 @@ class Security
 
     public function isAdministrator() {
         if ($this->isLogged() && $this->request->session("grant_name") == 'administrator') {
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
     public function getDatasSession()
@@ -33,10 +33,8 @@ class Security
             $user_data['grant_name'] = $this->request->session("grant_name");
             $user_data['token_crsf'] = $this->request->session("token_crsf");
             return $user_data;
-        } else {
-            return null;
         }
-
+        return null;
     }
 
     public function getIdUser()
@@ -44,25 +42,15 @@ class Security
         if($this->isLogged())
         {
             return $this->request->session("iduser");
-        } else {
-            return null;
         }
+        return null;
     }
 
-    public function generateTokenCrsf()
+    public function tokenCrsf()
     {
         $token = md5(uniqid(rand(), TRUE));
-        $this->tokencrsf = $token;
-    }
-
-    public function getTokenCrsf()
-    {
-        return $this->tokencrsf;
-    }
-
-    public function setTokenCrsfSession()
-    {
-        $this->request->set('token_crsf',$this->tokencrsf,'session');
+        $this->request->set('token_crsf',$token,'session');
+        return $token;
     }
 
     public function connectUser($datas_user)

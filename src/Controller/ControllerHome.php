@@ -22,7 +22,6 @@ class ControllerHome extends Controller
     public function contact()
     {
         $contact = new Contact(array());
-
         if ($this->request->exist('btn_contact', 'post')) {
 
             $contact->setValueFromPost();
@@ -46,6 +45,7 @@ class ControllerHome extends Controller
                         #'error' => $e->getMessage(),
                         'contact_datas' => $contact,
                         'user_data' => $this->security->getDatasSession(),
+                        'token_crsf' => $this->security->tokenCrsf(),
                         'page_name' => "Contact"
                     ]);
                 }
@@ -56,6 +56,7 @@ class ControllerHome extends Controller
                 'errors' => $contact->getErrorsForm(),
                 'contact_datas' => $contact,
                 'user_data' => $this->security->getDatasSession(),
+                'token_crsf' => $this->security->tokenCrsf(),
                 'page_name' => "Contact"
             ]);
             return false;
@@ -63,6 +64,7 @@ class ControllerHome extends Controller
         $this->viewRender('Contact/addContact', [
             'contact_datas' => $contact,
             'user_data' => $this->security->getDatasSession(),
+            'token_crsf' => $this->security->tokenCrsf(),
             'page_name' => "Contact"
         ]);
     }

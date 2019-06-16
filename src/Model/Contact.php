@@ -197,18 +197,12 @@ class Contact extends Model
 
     public function validForm()
     {
-        return($this->isDefine()); #&& $this->crsfisValid()
+        return($this->isDefine() && $this->crsfisValid());
     }
 
     public function crsfisValid()
     {
-        if($this->request->post('token_crsf') == $this->request->session('token_crsf'))
-        {
-            return 1;
-        } else {
-            dump($this->request->post('token_crsf'));
-            return 0;
-        }
+        return($this->request->post('token_crsf') == $this->request->session('token_crsf'));
     }
 
     public function setValueFromPost()
@@ -251,13 +245,14 @@ class Contact extends Model
         if($this->security->isLogged())
         {
             if(!$this->isDefine()) { $error[] = "Tout les champs ne sont pas remplit";}
+            if(!$this->crsfisValid()) { $error[] = "Le token CRSF n'est pas valide"; }
             return $error;
         }
         if(!$this->isDefine()) { $error[] = "Tout les champs ne sont pas remplit";}
         if(!$this->mailValid()) { $error[] = "L'adresse email n'est pas valide"; }
         if(!$this->fistnameValid()) { $error[] = "Taille du prenom de 1 a 100 caractere"; }
         if(!$this->lastnameValid()) { $error[] = "Taille du nom de 1 a 100 caractere"; }
-        #if(!$this->crsfisValid()) { $error[] = "Le token CRSF n'est pas valide"; }
+        if(!$this->crsfisValid()) { $error[] = "Le token CRSF n'est pas valide"; }
         return $error;
     }
 
@@ -267,7 +262,6 @@ class Contact extends Model
         {
             $user = $this->userManager->getUserbyId($this->_iduser);
             $message = "Nom : ".$user['lastname'].'| Prenom : '.$user['firstname'].' | Email : '.$user['mail']." | Message : ".$this->_message." | Date : ".$this->getDateNow();
-            #on recup les valeur dans la BDD
             return $message;
         }
 
