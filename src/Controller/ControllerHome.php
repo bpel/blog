@@ -37,6 +37,7 @@ class ControllerHome extends Controller
                     $this->viewRender('Contact/addContact', [
                         'message' => 'Votre message à été envoyé avec success!',
                         'user_data' => $this->security->getDatasSession(),
+                        'token_crsf' => $this->security->tokenCrsf(),
                         'page_name' => "Contact"
                     ]);
                 } catch (\Exception $e) {
