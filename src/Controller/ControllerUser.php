@@ -13,7 +13,8 @@ class ControllerUser extends Controller
     {
         $errors = null;
         if ($this->security->isLogged()) {
-        } else {
+            $this->redirectToPage('home');
+        }
             if ($this->request->exist("btn_register", "post")) {
                 $user = new User(array());
                 $user->setLastName(strtolower($this->request->post('lastname')));
@@ -44,16 +45,13 @@ class ControllerUser extends Controller
                 ]);
             }
 
-
-        }
     }
 
     public function userLogin()
     {
         if ($this->security->isLogged()) {
-
-
-        } else {
+            $this->redirectToPage('home');
+        }
             if ($this->request->exist("btn_login", "post")) {
                 $user = new User(array());
                 $user->setMail($this->request->post('mail'));
@@ -76,7 +74,6 @@ class ControllerUser extends Controller
 
                 ]);
             }
-        }
     }
 
     public function logout()
@@ -85,13 +82,7 @@ class ControllerUser extends Controller
         {
             $this->redirectToPage('login');
         }
-        else
-        {
-            session_destroy();
-
-            header('Location:?page=home');
-
-            #$this->redirectToPage('home');
-        }
+            $_SESSION = array();
+            $this->redirectToPage('home');
     }
 }

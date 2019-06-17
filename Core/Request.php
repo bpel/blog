@@ -70,9 +70,8 @@ class Request {
     public function session($key) {
         if ($this->exist($key,"session")) {
             return $this->data['session'][$key];
-        } else {
-            return false;
         }
+        return false;
     }
 
 }
