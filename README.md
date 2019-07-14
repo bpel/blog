@@ -4,6 +4,10 @@ by Benjamin Pelletier
 - Create database blog
 - Import dump_sql.sql
 - Config .env_demo and rename it to .env
+- Run composer update :
+ ```
+composer update
+ ```
 - Run maildev :
  ```
 maildev
