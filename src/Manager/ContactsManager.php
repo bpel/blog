@@ -17,53 +17,26 @@ class ContactsManager extends Model
         $this->userManager = new UserManager();
     }
 
-    public function addContact($contact, $type_login)
+    public function addContact($contact)
     {
-        switch ($type_login)
+        if($contact->getIduser())
         {
-            case "login":
-                $iduser = $contact->getIduser();
-                $message = $contact->getMessage();
-                $dateNow = $this->getDateNow();
-
-                $user = $this->userManager->getUserbyId($iduser);
-
-                $contact->setLastname($user['lastname']);
-                $contact->setFirstName($user['firstname']);
-                $contact->setMail($user['mail']);
-                $contact->setCreateDate($this->getDateNow());
-
-                $this->sendMail($contact);
-
-                $req = $this->getBdd()->prepare('INSERT INTO contacts (iduser, message, createdate)VALUES (:iduser, :message, :createdate);');
-
-                $req->bindParam(':iduser', $iduser);
-                $req->bindParam(':message', $message);
-                $req->bindParam(':createdate', $dateNow);
-                $req->execute();
-                $req->closeCursor();
-                break;
-            case "anonymous":
-                $lastname = $contact->getLastname();
-                $firstname = $contact->getFirstname();
-                $mail = $contact->getMail();
-                $message = $contact->getMessage();
-                $dateNow = $this->getDateNow();
-
-                $this->sendMail($contact);
-
-                $req = $this->getBdd()->prepare('INSERT INTO contacts (lastname, firstname, mail, message, createdate)VALUES (:lastname, :firstname, :mail, :message, :createdate);');
-
-                $req->bindParam(':lastname', $lastname);
-                $req->bindParam(':firstname', $firstname);
-                $req->bindParam(':mail', $mail);
-                $req->bindParam(':message', $message);
-                $req->bindParam(':createdate', $dateNow);
-                $req->execute();
-                $req->closeCursor();
-                break;
+            $req = $this->getBdd()->prepare('INSERT INTO contacts (iduser, message, createdate)VALUES (:iduser, :message, :createdate);');
+            $req->bindValue(':iduser', $contact->getIduser());
+            $req->bindValue(':message', $contact->getMessage());
+            $req->bindValue(':createdate', $this->getDateNow());
+            $req->execute();
+            $req->closeCursor();
+        } else {
+            $req = $this->getBdd()->prepare('INSERT INTO contacts (lastname, firstname, mail, message, createdate)VALUES (:lastname, :firstname, :mail, :message, :createdate);');
+            $req->bindValue(':lastname', $contact->getLastname());
+            $req->bindValue(':firstname', $contact->getFirstname());
+            $req->bindValue(':mail', $contact->getMail());
+            $req->bindValue(':message', $contact->getMessage());
+            $req->bindValue(':createdate', $this->getDateNow());
+            $req->execute();
+            $req->closeCursor();
         }
-
     }
 
     public function getContacts()

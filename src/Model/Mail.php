@@ -12,7 +12,6 @@ class Mail extends Model
 {
 
     private $_subject;
-    private $_receiverMail;
     private $_text;
     private $_mailer;
     private $_transport;
@@ -31,11 +30,6 @@ class Mail extends Model
         $this->_text = $text;
     }
 
-    public function setReceiverMail($receiverMail)
-    {
-        $this->_receiverMail = $receiverMail;
-    }
-
     public function setSubjectMail($subject)
     {
         $this->_subject = $subject;
@@ -45,7 +39,7 @@ class Mail extends Model
     {
         $message = (new Swift_Message($this->_subject))
             ->setFrom([$this->getEnvVar('mail_receiver') => $this->getEnvVar('full_name')])
-            ->setTo($this->_receiverMail)
+            ->setTo($this->getEnvVar('mail_receiver'))
             ->setBody($this->_text)
         ;
 

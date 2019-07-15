@@ -28,9 +28,9 @@ class ControllerHome extends Controller
 
             if ($contact->validForm())
             {
-                $this->mail->setReceiverMail($contact->getMail());
                 $this->mail->setSubjectMail('[NEW] CONTACT FORM');
                 $this->mail->setMessageMail($contact->getMessageMailContact());
+                $this->contactsManager->addContact($contact);
 
                 try {
                     $this->mail->sendMail();
