@@ -27,7 +27,8 @@ class ContactsManager extends Model
             $req->bindValue(':createdate', $this->getDateNow());
             $req->execute();
             $req->closeCursor();
-        } else {
+            return true;
+        }
             $req = $this->getBdd()->prepare('INSERT INTO contacts (lastname, firstname, mail, message, createdate)VALUES (:lastname, :firstname, :mail, :message, :createdate);');
             $req->bindValue(':lastname', $contact->getLastname());
             $req->bindValue(':firstname', $contact->getFirstname());
@@ -36,7 +37,6 @@ class ContactsManager extends Model
             $req->bindValue(':createdate', $this->getDateNow());
             $req->execute();
             $req->closeCursor();
-        }
     }
 
     public function getContacts()

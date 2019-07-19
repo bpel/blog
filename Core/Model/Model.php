@@ -31,8 +31,9 @@ abstract class Model
 
     public function getEnvVar($token)
     {
-        if (isset($_ENV[$token])) { return $_ENV[$token]; }
-        elseif ($_ENV[strtoupper($token)]) { return $_ENV[strtoupper($token)]; }
+        $ENV = $_ENV;
+        if (isset($ENV[$token])) { return $ENV[$token]; }
+        elseif ($ENV[strtoupper($token)]) { return $ENV[strtoupper($token)]; }
         return null;
     }
 
