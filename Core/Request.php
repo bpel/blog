@@ -9,7 +9,8 @@ class Request {
     public function __construct() {
     $this->data['get'] = filter_input_array(INPUT_GET);
     $this->data['post'] = filter_input_array(INPUT_POST);
-    $this->data['session'] = $_SESSION;
+    $session = $_SESSION;
+    $this->data['session'] = $session;
     }
 
     public function exist($key, $method = "get") {
