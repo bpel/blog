@@ -1,5 +1,7 @@
-# PHP Blog 
+# PHP Blog
 by Benjamin Pelletier
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e05d6fcca49d4da7a8379c2aecd32917)](https://www.codacy.com/app/bpel/blog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bpel/blog&amp;utm_campaign=Badge_Grade)
 ## Install
 - Create database blog
 - Import dump_sql.sql
